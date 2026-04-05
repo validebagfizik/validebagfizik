@@ -1,27 +1,13 @@
-from playwright.sync_api import sync_playwright
+@app.route('/trt1.m3u8')
+def play_trt():
+    url = "https://tv-trt1.medya.trt.com.tr/master.m3u8"
 
-def get_stream_info():
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context(locale="tr-TR")
-        page = context.new_page()
+    req = requests.get(url, headers=HEADERS, stream=True)
 
-        stream_url = None
-        headers = {}
+    def generate():
+        for chunk in req.iter_content(chunk_size=1024):
+            yield chunk
 
-        def handle_request(request):
-            nonlocal stream_url, headers
-            url = request.url
-
-            if ".m3u8" in url:
-                stream_url = url
-                headers = request.headers
-
-        page.on("request", handle_request)
-
-        page.goto("https://www.trtizle.com/canli/tv/trt1", timeout=60000)
-        page.wait_for_timeout(8000)
-
-        browser.close()
-
-        return stream_url, headers
+    return Response(generate(), content_type=req.headers.get('content-type'), headers={
+        'Access-Control-Allow-Origin': '*'
+    })
