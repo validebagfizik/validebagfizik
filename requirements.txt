@@ -2,4 +2,3 @@ flask
 requests
 playwright==1.42.0
 gunicorn
-greenlet==3.0.3
