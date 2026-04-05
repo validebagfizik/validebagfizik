@@ -6,10 +6,10 @@ app = Flask(__name__)
 
 # Şu anda en iyi çalışan TRT 1 linkleri (sırayla dener)
 TRT1_LINKS = [
+    "https://tv-trt1.medya.trt.com.tr/master.m3u8",
     "https://trt.daioncdn.net/trt-1/master.m3u8?app=web",     # En stabil (2025-2026)
     "https://trt.daioncdn.net/trt-1/master.m3u8?app=clean",
     "https://tv-trt1.medya.trt.com.tr/master.m3u8",
-    "https://tv-trt1.live.trt.com.tr/master.m3u8",
 ]
 
 def get_working_trt1_link():
