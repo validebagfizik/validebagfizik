@@ -2,12 +2,10 @@
 def play_trt():
     url = "https://tv-trt1.medya.trt.com.tr/master.m3u8"
 
-    req = requests.get(url, headers=HEADERS, stream=True)
+    r = requests.get(url, headers=HEADERS)
+    content = r.text
 
-    def generate():
-        for chunk in req.iter_content(chunk_size=1024):
-            yield chunk
+    # TS linklerini kendi sunucuna yönlendir
+    content = content.replace("https://tv-trt1.medya.trt.com.tr/", request.host_url + "segment/")
 
-    return Response(generate(), content_type=req.headers.get('content-type'), headers={
-        'Access-Control-Allow-Origin': '*'
-    })
+    return Response(content, content_type="application/vnd.apple.mpegurl")
