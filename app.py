@@ -8,43 +8,36 @@ HEADERS = {
     "Referer": "https://www.trtizle.com/"
 }
 
-# TRT'nin ana yayın merkezi
+# TRT ana sunucusu
 BASE_URL = "https://tv-trt1.medya.trt.com.tr/"
 
 @app.route('/')
 def home():
-    return "<h1>Validebag Sunucu Aktif</h1><p>VLC veya Player icin link: /trt1.m3u8</p>"
+    return "<h1>Sistem Yenilendi</h1><p>VLC Linki: /trt1.m3u8</p>"
 
 @app.route('/trt1.m3u8')
-@app.route('/segment/<path:path>')
-def proxy(path=None):
-    # Eğer path yoksa ana dosyayı (master.m3u8) istiyoruz demektir
-    target_url = BASE_URL + (path if path else "master.m3u8")
-    
+def master():
+    # Ana listeyi alıp içindeki her şeyi bizim sunucuya yönlendiriyoruz
     try:
-        r = requests.get(target_url, headers=HEADERS, stream=True, timeout=15)
-        
-        # Eğer gelen dosya bir liste (m3u8) ise içindeki linkleri bozmadan kendimize çekiyoruz
-        if ".m3u8" in target_url:
-            lines = r.text.split('\n')
-            new_lines = []
-            for line in lines:
-                # Satır boş değilse ve yorum satırı (#) değilse, linktir
-                if line and not line.startswith('#'):
-                    # Göreli (relative) linkleri tam linke çevirip kendi sunucumuza yönlendiriyoruz
-                    if not line.startswith('http'):
-                        line = request.host_url + "segment/" + line
-                    else:
-                        line = line.replace(BASE_URL, request.host_url + "segment/")
-                new_lines.append(line)
-            
-            return Response('\n'.join(new_lines), content_type="application/vnd.apple.mpegurl")
+        r = requests.get(BASE_URL + "master.m3u8", headers=HEADERS, timeout=10)
+        content = r.text.replace(BASE_URL, request.host_url + "proxy/")
+        return Response(content, content_type="application/vnd.apple.mpegurl")
+    except:
+        return "Hata", 500
 
-        # Eğer gelen dosya bir video parçası (ts) ise doğrudan akıtıyoruz
-        return Response(r.content, content_type=r.headers.get('content-type'))
-        
-    except Exception as e:
-        return f"Hata: {str(e)}", 404
+@app.route('/proxy/<path:path>')
+def proxy(path):
+    # Hem alt listeleri hem de video parçalarını çeken ortak kapı
+    url = BASE_URL + path
+    r = requests.get(url, headers=HEADERS, stream=True, timeout=15)
+    
+    if ".m3u8" in path:
+        # Eğer bu bir alt listeyse içindeki linkleri de temizle
+        content = r.text.replace(BASE_URL, request.host_url + "proxy/")
+        return Response(content, content_type="application/vnd.apple.mpegurl")
+    
+    # Video parçasıysa doğrudan akıt
+    return Response(r.content, content_type=r.headers.get('content-type'))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)
