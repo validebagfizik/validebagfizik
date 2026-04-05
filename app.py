@@ -3,16 +3,15 @@ import os
 
 app = Flask(__name__)
 
-# 2026 itibarıyla en stabil çalışan TRT 1 linki
-TRT1_MAIN_LINK = "https://trt.daioncdn.net/trt-1/master.m3u8?app=web"
+# Şu anda en stabil çalışan TRT 1 linki (Nisan 2026)
+TRT1_LINK = "https://trt.daioncdn.net/trt-1/master.m3u8?app=web"
 
 @app.route('/trt1.m3u8')
 def trt1():
-    # Direkt en iyi linki veriyoruz (Render'da test etmek sorun çıkarıyorsa bypass)
     content = f"""#EXTM3U
 #EXT-X-VERSION:3
-#EXT-X-STREAM-INF:BANDWIDTH=5000000,RESOLUTION=1920x1080,CODECS="avc1.640028,mp4a.40.2"
-{TRT1_MAIN_LINK}
+#EXT-X-STREAM-INF:BANDWIDTH=6000000,RESOLUTION=1920x1080,CODECS="avc1.640028,mp4a.40.2"
+{TRT1_LINK}
 """
     return Response(content, mimetype='application/vnd.apple.mpegurl')
 
@@ -20,12 +19,18 @@ def trt1():
 @app.route('/')
 def home():
     return """
-    <h1>TRT 1 Proxy - Render Üzerinde</h1>
-    <p><strong>Yayın Linki:</strong> <code>https://validebagfizik.onrender.com/trt1.m3u8</code></p>
-    <p>VLC, Kodi, GSE IPTV veya herhangi bir m3u8 oynatıcı ile açmayı dene.</p>
-    <p><small>Not: Render ücretsiz planda bazen yavaş açılabilir.</small></p>
+    <h1>✅ TRT 1 Proxy (Render)</h1>
+    <p><strong>Doğrudan açılacak link:</strong><br>
+    <code>https://validebagfizik.onrender.com/trt1.m3u8</code></p>
+    
+    <h2>Nasıl izlenir?</h2>
+    <ul>
+        <li><strong>VLC Media Player</strong> → Media → Open Network Stream → linki yapıştır</li>
+        <li>Chrome'da direkt açılmaz (CORS yüzünden)</li>
+        <li>Windows Media Player desteklemez</li>
+    </ul>
+    <p>Denemek için <a href="/trt1.m3u8" target="_blank">/trt1.m3u8</a> tıklayın (VLC'de açın).</p>
     """
-
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
