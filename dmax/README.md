@@ -1,1 +1,0 @@
-DMAX klasörü başlangıcı
