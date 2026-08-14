@@ -604,9 +604,40 @@
             "konu": "Atom",
             "baslik": "Atomun İçindeki Rüya",
             "yazar": "Fuat Karalı",
-            "kapak": "",
+            "kapak": "uploads/okuma/img_6a7ef7090c9d8.png",
             "tarih": "14.08.2026 11:35:55"
         },
-        "page": []
+        "page": [
+            {
+                "uid": "block_1786707506045_5637",
+                "type": "baslik",
+                "content": {
+                    "tag": "h2",
+                    "text": "Atomun İçindeki Rüya"
+                }
+            },
+            {
+                "uid": "block_1786707506045_3578",
+                "type": "paragraf",
+                "content": {
+                    "html": "<div>Gece yarısını çoktan geçmişti.\n<br>Sessiz laboratuvarda yalnızca kâğıt hışırtıları ve duvardaki saatin tik takları duyuluyordu. Masanın üzerindeki sarı ışık altında genç bir fizikçi defalarca aynı hesapları yapıyordu. Adı Niels Bohr idi.\n<br>O yıllarda atom, bilimin en büyük gizemlerinden biriydi. İnsanlar atomun var olduğunu düşünüyor ama içinde neler olduğunu tam olarak bilmiyordu. Özellikle tek bir soru herkesi zorluyordu: “Elektronlar neden çekirdeğin içine düşmüyor?”\n<br>Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.</div>"
+                }
+            },
+            {
+                "uid": "block_1786707506045_3977",
+                "type": "baslik",
+                "content": {
+                    "tag": "h2",
+                    "text": "Bohr Laboratuvarda "
+                }
+            },
+            {
+                "uid": "block_1786707506045_7154",
+                "type": "paragraf",
+                "content": {
+                    "html": "<div><div class=\"single-img-container\" contenteditable=\"false\">\n        <img src=\"../uploads/img_6a7ef962cd5a2.png\" alt=\"Görsel\">\n \n    </div><p><br></p><br></div>"
+                }
+            }
+        ]
     }
 ]
