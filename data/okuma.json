@@ -572,7 +572,7 @@
         },
         "page": [
             {
-                "uid": "block_1786709170997_391",
+                "uid": "block_1786710847621_5740",
                 "type": "baslik",
                 "content": {
                     "tag": "h2",
@@ -580,14 +580,14 @@
                 }
             },
             {
-                "uid": "block_1786709170997_2086",
+                "uid": "block_1786710847621_6587",
                 "type": "paragraf",
                 "content": {
                     "html": "<div>Gece yarısını çoktan geçmişti.\n<br>Sessiz laboratuvarda yalnızca kâğıt hışırtıları ve duvardaki saatin tik takları duyuluyordu. Masanın üzerindeki sarı ışık altında genç bir fizikçi defalarca aynı hesapları yapıyordu. Adı Niels Bohr idi.\n<br>O yıllarda atom, bilimin en büyük gizemlerinden biriydi. İnsanlar atomun var olduğunu düşünüyor ama içinde neler olduğunu tam olarak bilmiyordu. Özellikle tek bir soru herkesi zorluyordu: “Elektronlar neden çekirdeğin içine düşmüyor?”\n<br>Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.</div>"
                 }
             },
             {
-                "uid": "block_1786709170997_9738",
+                "uid": "block_1786710847621_9422",
                 "type": "baslik",
                 "content": {
                     "tag": "h2",
@@ -595,14 +595,14 @@
                 }
             },
             {
-                "uid": "block_1786709170997_5914",
+                "uid": "block_1786710847621_5999",
                 "type": "paragraf",
                 "content": {
                     "html": "<div><div class=\"single-img-container\" contenteditable=\"false\">\n        <img src=\"../uploads/img_6a7ef962cd5a2.png\" alt=\"Görsel\">\n \n    </div><p><br></p>Bohr günlerdir bunu düşünüyordu. Defterleri denklemlerle dolmuştu. Bazen aynı satıra dakikalarca bakıyor, bazen sinirlenip sayfaları buruşturuyordu. Çünkü atom sanki gözlerinin önünde duruyor ama sırrını vermiyordu.\n<br>O gece yorgunluktan başı masasının üzerine düştü. Ve uykuya daldı.\n<br>Birden kendisini karanlık bir boşluğun içinde buldu. Önünde parlak bir küre vardı. Bu bir atom çekirdeğiydi. Çevresinde ise ışıklı parçacıklar dönüyordu: Elektronlar…\n<br>Ama rastgele hareket etmiyorlardı. Sanki görünmez rayların üzerinde kayıyor gibiydiler. Her biri belirli halkalar boyunca dönüyor, bazen bir halkadan diğerine sıçrarken kısa ışık parlamaları oluşturuyordu.&nbsp;<br></div>"
                 }
             },
             {
-                "uid": "block_1786709170997_901",
+                "uid": "block_1786710847621_744",
                 "type": "baslik",
                 "content": {
                     "tag": "h2",
@@ -610,10 +610,10 @@
                 }
             },
             {
-                "uid": "block_1786709170997_1143",
+                "uid": "block_1786710847621_238",
                 "type": "paragraf",
                 "content": {
-                    "html": "<div><br></div>"
+                    "html": "<div><p><br></p><div class=\"single-img-container\" contenteditable=\"false\">\n        <img src=\"../uploads/okuma/atom3.png\" alt=\"Görsel\">\n \n    </div><p><br></p><p><br></p><br></div>"
                 }
             }
         ]
