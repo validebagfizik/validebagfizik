@@ -10,7 +10,7 @@
         },
         "page": [
             {
-                "uid": "block_1786706712188_109",
+                "uid": "block_1786706820975_2108",
                 "type": "baslik",
                 "content": {
                     "tag": "h2",
@@ -18,20 +18,13 @@
                 }
             },
             {
-                "uid": "block_1786706712188_5547",
+                "uid": "block_1786706820975_9839",
                 "type": "sutunlu_yazi",
                 "content": {
                     "layout_type": "1",
                     "cell_1_type": "text",
-                    "text_block_block_1786706712188_5547_1": "<h3>Atomun İçindeki Rüya</h3><div>Gece yarısını çoktan geçmişti.\n<br>\n<br>Sessiz laboratuvarda yalnızca kâğıt hışırtıları ve duvardaki saatin tik takları duyuluyordu. Masanın üzerindeki sarı ışık altında genç bir fizikçi defalarca aynı hesapları yapıyordu. Adı Niels Bohr idi.\n<br>\n<br>O yıllarda atom, bilimin en büyük gizemlerinden biriydi. İnsanlar atomun var olduğunu düşünüyor ama içinde neler olduğunu tam olarak bilmiyordu. Özellikle tek bir soru herkesi zorluyordu: “Elektronlar neden çekirdeğin içine düşmüyor?”\n<br>\n<br>Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.</div><h3>Bohr Laboratuvarda</h3><div><br></div>",
-                    "image_path_block_block_1786706712188_5547_1": ""
-                }
-            },
-            {
-                "uid": "block_1786706712188_4668",
-                "type": "paragraf",
-                "content": {
-                    "html": "<div class=\"single-img-container\" contenteditable=\"false\">\n        <img src=\"../uploads/img_6a7ef962cd5a2.png\" alt=\"Görsel\">\n \n    </div>"
+                    "text_block_block_1786706820975_9839_1": "",
+                    "image_path_block_block_1786706820975_9839_1": ""
                 }
             }
         ]
