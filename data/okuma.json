@@ -5,12 +5,12 @@
             "konu": "Teori",
             "baslik": "Atomun İçindeki Rüya",
             "yazar": "FUAT KARALI",
-            "kapak": "uploads/okuma/img_6a62257798618.jpg",
+            "kapak": "uploads/okuma/img_6a7ef7090c9d8.png",
             "tarih": "21.06.2026 20:32:38"
         },
         "page": [
             {
-                "uid": "block_1785845487961_4240",
+                "uid": "block_1786706051579_7599",
                 "type": "baslik",
                 "content": {
                     "tag": "h2",
@@ -18,13 +18,13 @@
                 }
             },
             {
-                "uid": "block_1785845487962_338",
+                "uid": "block_1786706051579_762",
                 "type": "sutunlu_yazi",
                 "content": {
                     "layout_type": "1",
                     "cell_1_type": "text",
-                    "text_block_block_1785845487962_338_1": "<h3>Atomun İçindeki Rüya</h3><div>Gece yarısını çoktan geçmişti.\n<br>\n<br>Sessiz laboratuvarda yalnızca kâğıt hışırtıları ve duvardaki saatin tik takları duyuluyordu. Masanın üzerindeki sarı ışık altında genç bir fizikçi defalarca aynı hesapları yapıyordu. Adı Niels Bohr idi.\n<br>\n<br>O yıllarda atom, bilimin en büyük gizemlerinden biriydi. İnsanlar atomun var olduğunu düşünüyor ama içinde neler olduğunu tam olarak bilmiyordu. Özellikle tek bir soru herkesi zorluyordu: “Elektronlar neden çekirdeğin içine düşmüyor?”\n<br>\n<br>Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.</div><h3>Bohr Laboratuvarda</h3><div>﻿﻿﻿Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.\n<br>\n<br>Bohr Laboratuvarda\n<br>\n<br>﻿﻿﻿Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.</div>",
-                    "image_path_block_block_1785845487962_338_1": ""
+                    "text_block_block_1786706051579_762_1": "<h3>Atomun İçindeki Rüya</h3><div>Gece yarısını çoktan geçmişti.\n<br>\n<br>Sessiz laboratuvarda yalnızca kâğıt hışırtıları ve duvardaki saatin tik takları duyuluyordu. Masanın üzerindeki sarı ışık altında genç bir fizikçi defalarca aynı hesapları yapıyordu. Adı Niels Bohr idi.\n<br>\n<br>O yıllarda atom, bilimin en büyük gizemlerinden biriydi. İnsanlar atomun var olduğunu düşünüyor ama içinde neler olduğunu tam olarak bilmiyordu. Özellikle tek bir soru herkesi zorluyordu: “Elektronlar neden çekirdeğin içine düşmüyor?”\n<br>\n<br>Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.</div><h3>Bohr Laboratuvarda</h3><div>﻿﻿﻿Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.\n<br>\n<br>Bohr Laboratuvarda\n<br>\n<br>﻿﻿﻿Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.</div>",
+                    "image_path_block_block_1786706051579_762_1": ""
                 }
             }
         ]
