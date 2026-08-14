@@ -1,42 +1,5 @@
 [
     {
-        "id": "okuma_1782054031",
-        "meta": {
-            "konu": "Teori",
-            "baslik": "Atomun İçindeki Rüya",
-            "yazar": "FUAT KARALI",
-            "kapak": "uploads/okuma/img_6a7ef7090c9d8.png",
-            "tarih": "21.06.2026 20:32:38"
-        },
-        "page": [
-            {
-                "uid": "block_1786707234030_4021",
-                "type": "baslik",
-                "content": {
-                    "tag": "h2",
-                    "text": ""
-                }
-            },
-            {
-                "uid": "block_1786707234030_2096",
-                "type": "sutunlu_yazi",
-                "content": {
-                    "layout_type": "1",
-                    "cell_1_type": "text",
-                    "text_block_block_1786707234030_2096_1": "<h2>Atomun İçindeki Rüya\n</h2>Gece yarısını çoktan geçmişti.\n<br>Sessiz laboratuvarda yalnızca kâğıt hışırtıları ve duvardaki saatin tik takları duyuluyordu. Masanın üzerindeki sarı ışık altında genç bir fizikçi defalarca aynı hesapları yapıyordu. Adı Niels Bohr idi.\n<br>O yıllarda atom, bilimin en büyük gizemlerinden biriydi. İnsanlar atomun var olduğunu düşünüyor ama içinde neler olduğunu tam olarak bilmiyordu. Özellikle tek bir soru herkesi zorluyordu: “Elektronlar neden çekirdeğin içine düşmüyor?”\n<br>Çünkü bilinen fizik kurallarına göre dönen bir elektron enerji kaybetmeliydi. Enerji kaybeden elektron da giderek çekirdeğe yaklaşmalıydı. Eğer bu doğruysa bütün maddelerin çökmesi gerekirdi. Ama çökmüyordu. Demek ki atomun içinde henüz keşfedilmemiş gizli bir düzen vardı.\n<br><h2>Bohr Laboratuvarda&nbsp;</h2>",
-                    "image_path_block_block_1786707234030_2096_1": ""
-                }
-            },
-            {
-                "uid": "block_1786707234030_6559",
-                "type": "paragraf",
-                "content": {
-                    "html": "<div class=\"single-img-container\" contenteditable=\"false\">\n        <img src=\"../uploads/okuma/img_6a7efa1deb4da.png\" alt=\"Görsel\">\n \n    </div>"
-                }
-            }
-        ]
-    },
-    {
         "id": "okuma_1785848139",
         "meta": {
             "konu": "Enerji",
