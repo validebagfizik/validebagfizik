@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetim Paneli — Okuma Metinleri & Makaleler</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/themes.css">
+    <link rel="stylesheet" href="../assets/css/editor.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+    <style>
+        .liste-kapak-thumb { width: 80px; height: 60px; object-fit: cover; border-radius: 6px; }
+        .liste-kapak-bos { display: flex; align-items: center; justify-content: center; background: #f0f0f0; color: #ccc; width: 80px; height: 60px; border-radius: 6px;}
+        .konu-badge { background: #e9ecef; padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; display: inline-block; }
+        .baslik-hucre { font-weight: 600; }
+        .islem-btn { margin-left: 5px; color: #555; text-decoration: none; }
+        .islem-btn:hover { color: #000; }
+        .islem-btn-sil:hover { color: #dc3545; }
+        .liste-bos { text-align: center; padding: 40px; color: #888; }
+        .text-end { text-align: right; }
+    </style>
+</head>
+<body class="theme-warm-amber">
+
+    <div class="admin-layout-wrapper">
+        <div class="admin-sidebar-zone" id="sidebar-yeri"></div>
+
+        <div class="admin-main-content">
+            <div class="admin-page-header">
+                <div>
+                    <h1><i class="fa-solid fa-book-open"></i> Okuma Metinleri & Makaleler</h1>
+                    <p>Sınırsız okuma metni ekleyip düzenleyebilirsiniz. (JSONBin + Vercel Sürümü)</p>
+                </div>
+                <div id="header-buttons"></div>
+            </div>
+
+            <div id="duzenleme-alani" style="display: none;">
+                <div class="meta-cubugu">
+                    <input type="hidden" id="edit_id" value="">
+                    <div class="meta-alan">
+                        <label>Konu / Ünite</label>
+                        <input type="text" id="meta_konu" name="meta_konu" class="meta-input" value="" placeholder="Örn: Dinamik">
+                    </div>
+                    <div class="meta-alan meta-alan-genis">
+                        <label>Başlık</label>
+                        <input type="text" id="meta_baslik" name="meta_baslik" class="meta-input" value="" placeholder="Bağlam başlığı">
+                    </div>
+                    <div class="meta-alan">
+                        <label>Yazar</label>
+                        <input type="text" id="meta_yazar" name="meta_yazar" class="meta-input" value="" placeholder="Yazar adı">
+                    </div>
+                    <div class="meta-alan">
+                        <label>Tarih</label>
+                        <input type="text" id="meta_tarih" name="meta_tarih" class="meta-input" value="" placeholder="Tarih">
+                    </div>
+                    <div class="meta-alan">
+                        <label>Kapak</label>
+                        <input type="text" id="meta_kapak" name="meta_kapak" class="meta-input" value="" placeholder="Kapak yolu">
+                    </div>
+                </div>
+
+                <div class="editor-container">
+                    <div id="toolbar-yeri"></div>
+                    <script>window.EDITOR_DATA = [];</script>
+                    <div id="word-canvas" class="editor-content" contenteditable="true"></div>
+                    <div class="editor-info-bar">
+                        <span>Mod: <strong id="editor-mode">Yazım</strong></span>
+                        <span>Son hücrede <strong>Tab</strong> tuşu yeni satır ekler.</span>
+                    </div>
+                </div>
+
+                <div class="admin-action-bar">
+                    <a href="okuma.html" class="btn-onizleme">
+                        <i class="fa-solid fa-xmark"></i> İptal
+                    </a>
+                    <button type="button" id="btn-preview" class="btn-onizleme">
+                        <i class="fa-solid fa-eye"></i> Öngörünüm
+                    </button>
+                    <button type="button" id="btn-save-page" class="btn-kaydet-ana">
+                        <i class="fa-solid fa-floppy-disk"></i> Kaydet
+                    </button>
+                </div>
+            </div>
+
+            <div id="liste-alani" style="display: none;">
+                <div class="liste-kutusu">
+                    <table class="liste-tablosu" style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="text-align: left; border-bottom: 2px solid #ddd;">
+                                <th style="width:100px">Kapak</th>
+                                <th style="width:160px">Konu</th>
+                                <th>Başlık</th>
+                                <th style="width:150px">Yazar</th>
+                                <th style="width:150px">Tarih</th>
+                                <th style="width:120px" class="text-end">İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody id="veri-tablosu-govdesi">
+                            <tr>
+                                <td colspan="6" class="liste-bos">
+                                    <i class="fa-solid fa-spinner fa-spin"></i><br>
+                                    Veriler yükleniyor...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-yeri"></div>
+
+        <script>
+        // JSONBin.io Bilgileriniz
+        const BIN_ID = '6a8180e5da38895dfeeac9ba';
+        const MASTER_KEY = '$2a$10$hoEcTWYG61JDdqk2la71Veddbtk73v/joKCtYExbBKqnXE9Ss.NtS';
+        const API_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+        
+        const CURRENT_PAGE = 'okuma';
+        const urlParams = new URLSearchParams(window.location.search);
+        const editId = urlParams.get('duzenle') || '';
+        const silId = urlParams.get('sil');
+        const mod = editId ? 'duzenle' : 'liste';
+
+        async function htmlYukle(url, elementId) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`${url} bulunamadı (404)`);
+                const html = await response.text();
+                document.getElementById(elementId).innerHTML = html;
+                
+                // Modal yüklendikten sonra özel alanları içine bas
+                if (elementId === 'modal-yeri' && window.ALAN_TANIMLARI) {
+                    const sayfaAlanlari = window.ALAN_TANIMLARI[CURRENT_PAGE] || { once: [], sonra: [] };
+                    let onceHtml = '';
+                    sayfaAlanlari.once.forEach(a => onceHtml += window.popupAlanRenderla(a));
+                    document.getElementById('popup-ozel-alanlar-once').innerHTML = onceHtml;
+
+                    let sonraHtml = '';
+                    sayfaAlanlari.sonra.forEach(a => sonraHtml += window.popupAlanRenderla(a));
+                    document.getElementById('popup-ozel-alanlar-sonra').innerHTML = sonraHtml;
+                }
+            } catch (error) {
+                console.error(error);
+                document.getElementById(elementId).innerHTML = `<div style="color:red; padding:10px;">Hata: ${url} yüklenemedi.</div>`;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            await htmlYukle('includes/sidebar.html', 'sidebar-yeri'); 
+            await htmlYukle('includes/toolbar.html', 'toolbar-yeri');
+            await htmlYukle('includes/modal.html', 'modal-yeri');
+
+            // Düzenleme çubuğundaki (meta) özel alanları bas
+            if (window.ALAN_TANIMLARI) {
+                const sayfaAlanlari = window.ALAN_TANIMLARI[CURRENT_PAGE] || { once: [], sonra: [] };
+                const metaCubugu = document.querySelector('.meta-cubugu');
+                
+                sayfaAlanlari.once.forEach(a => {
+                    metaCubugu.insertAdjacentHTML('afterbegin', window.metaAlanRenderla(a, {}));
+                });
+                sayfaAlanlari.sonra.forEach(a => {
+                    metaCubugu.insertAdjacentHTML('beforeend', window.metaAlanRenderla(a, {}));
+                });
+            }
+
+            if (mod === 'liste') {
+                document.getElementById('liste-alani').style.display = 'block';
+                document.getElementById('duzenleme-alani').style.display = 'none';
+                document.getElementById('header-buttons').innerHTML = `
+                    <button type="button" class="btn-kaydet-ana" onclick="yeniBaglamAc()">
+                        <i class="fa-solid fa-plus"></i> Yeni Metin Ekle
+                    </button>`;
+                
+                if (silId) {
+                    try {
+                        const res = await fetch(API_URL + '/latest', { headers: { 'X-Master-Key': MASTER_KEY } });
+                        let data = await res.json();
+                        let veriler = data.record || [];
+                        const yeniListe = veriler.filter(v => v.id !== silId);
+                        
+                        await fetch(API_URL, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY },
+                            body: JSON.stringify(yeniListe)
+                        });
+                        alert('Kayıt başarıyla silindi!');
+                    } catch(e) { alert('Silme hatası: ' + e.message); }
+                    window.location.href = 'okuma.html';
+                } else {
+                    verileriYukle();
+                }
+            } else {
+                document.getElementById('liste-alani').style.display = 'none';
+                document.getElementById('duzenleme-alani').style.display = 'block';
+                document.getElementById('header-buttons').innerHTML = `
+                    <a href="okuma.html" class="btn-onizleme">
+                        <i class="fa-solid fa-list"></i> Listeye Dön
+                    </a>`;
+                duzenlemeVerisiYukle(editId);
+            }
+
+            document.getElementById('btn-save-page').addEventListener('click', kaydetVeyaGuncelle);
+        });
+
+        // POPUP (MODAL) AÇMA KAPAMA
+        function yeniBaglamAc() {
+            document.getElementById('yeniBaglamModal').style.display = 'flex';
+        }
+        function baglamKapat() {
+            document.getElementById('yeniBaglamModal').style.display = 'none';
+        }
+
+        // POPUP TAMAM'A BASILINCA YENİ KAYIT OLUŞTURUP JSONBİN'E EKLEME
+        async function popupTamam() {
+            const baslik = document.getElementById('popup-baslik').value;
+            const konu = document.getElementById('popup-konu').value;
+            if(!baslik || !konu) {
+                alert('Lütfen başlık ve konu girin.');
+                return;
+            }
+
+            const yeniId = CURRENT_PAGE + '_' + Date.now();
+            const meta = { baslik, konu };
+
+            // Özel alanları (yazar, kapak vb.) popup'tan oku
+            if (window.ALAN_TANIMLARI) {
+                const sayfaAlanlari = window.ALAN_TANIMLARI[CURRENT_PAGE] || { once: [], sonra: [] };
+                [...sayfaAlanlari.once, ...sayfaAlanlari.sonra].forEach(alan => {
+                    const el = document.getElementById('popup-' + alan.key);
+                    if(el) meta[alan.key] = el.value;
+                });
+            }
+
+            const yeniKayit = {
+                id: yeniId,
+                meta: meta,
+                page: [{ type: 'paragraf', content: { html: '<h2>Başlığınızı buraya yazın</h2><p>İçeriğe başlamak için tıklayın...</p>' } }]
+            };
+
+            try {
+                const res = await fetch(API_URL + '/latest', { headers: { 'X-Master-Key': MASTER_KEY } });
+                const data = await res.json();
+                let veriler = data.record || [];
+                veriler.push(yeniKayit);
+
+                await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY },
+                    body: JSON.stringify(veriler)
+                });
+
+                baglamKapat();
+                window.location.href = 'okuma.html?duzenle=' + yeniId;
+            } catch(e) {
+                alert('Kayıt eklenirken hata: ' + e.message);
+            }
+        }
+
+        async function verileriYukle() {
+            try {
+                const response = await fetch(API_URL + '/latest', { headers: { 'X-Master-Key': MASTER_KEY } });
+                if (!response.ok) throw new Error('JSONBin verisi okunamadı!');
+                const data = await response.json();
+                const veriler = data.record || [];
+
+                const tabloGovdesi = document.getElementById('veri-tablosu-govdesi');
+                tabloGovdesi.innerHTML = '';
+
+                if (veriler.length === 0) {
+                    tabloGovdesi.innerHTML = `<tr><td colspan="6" class="liste-bos"><i class="fa-solid fa-folder-open"></i><br>Henüz bir kayıt eklenmemiş.</td></tr>`;
+                    return;
+                }
+
+                const tersVeriler = veriler.reverse();
+
+                tersVeriler.forEach(item => {
+                    const m = item.meta || {};
+                    let kapakHtml = `<div class="liste-kapak-bos"><i class="fa-solid fa-image"></i></div>`;
+                    if (m.kapak) {
+                        kapakHtml = `<img src="../${m.kapak}" class="liste-kapak-thumb" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"><div class="liste-kapak-bos" style="display:none;"><i class="fa-solid fa-image"></i></div>`;
+                    }
+
+                    const tr = document.createElement('tr');
+                    tr.style.borderBottom = '1px solid #eee';
+                    tr.innerHTML = `
+                        <td>${kapakHtml}</td>
+                        <td><span class="konu-badge">${escapeHtml(m.konu || 'Genel')}</span></td>
+                        <td class="baslik-hucre">${escapeHtml(m.baslik || 'Başlıksız')}</td>
+                        <td>${escapeHtml(m.yazar || '-')}</td>
+                        <td>${escapeHtml(m.tarih || '-')}</td>
+                        <td class="text-end">
+                            <a href="okuma.html?duzenle=${item.id}" class="islem-btn" title="Düzenle"><i class="fa-solid fa-pen"></i></a>
+                            <a href="okuma.html?sil=${item.id}" class="islem-btn islem-btn-sil" title="Sil"><i class="fa-solid fa-trash"></i></a>
+                        </td>`;
+                    tabloGovdesi.appendChild(tr);
+                });
+            } catch (hata) {
+                console.error('Hata:', hata);
+                document.getElementById('veri-tablosu-govdesi').innerHTML = `<tr><td colspan="6" class="liste-bos" style="color: red;"><i class="fa-solid fa-triangle-exclamation"></i><br>${hata.message}</td></tr>`;
+            }
+        }
+
+        async function duzenlemeVerisiYukle(id) {
+            if (id === 'new') {
+                document.getElementById('edit_id').value = '';
+                window.EDITOR_DATA = [{type: 'paragraf', content: {html: '<h2>Başlığınızı buraya yazın</h2><p>İçeriğe başlamak için tıklayın...</p>'}}];
+                if (typeof window.renderEditor === 'function') window.renderEditor();
+                return;
+            }
+
+            try {
+                const response = await fetch(API_URL + '/latest', { headers: { 'X-Master-Key': MASTER_KEY } });
+                const data = await response.json();
+                const veriler = data.record || [];
+                
+                const item = veriler.find(v => v.id === id);
+                if (item) {
+                    const m = item.meta || {};
+                    document.getElementById('edit_id').value = item.id;
+                    document.getElementById('meta_konu').value = m.konu || '';
+                    document.getElementById('meta_baslik').value = m.baslik || '';
+
+                    // Özel alanları (yazar, kapak) edit ekranına doldur
+                    if (window.ALAN_TANIMLARI) {
+                        const sayfaAlanlari = window.ALAN_TANIMLARI[CURRENT_PAGE] || { once: [], sonra: [] };
+                        [...sayfaAlanlari.once, ...sayfaAlanlari.sonra].forEach(alan => {
+                            const el = document.getElementById('meta_' + alan.key);
+                            if(el) el.value = m[alan.key] || '';
+                        });
+                    }
+
+                    let sayfaVerisi = item.page || [];
+                    if (sayfaVerisi.length > 0 && typeof sayfaVerisi === 'string') {
+                        sayfaVerisi = [{type: 'paragraf', content: {html: sayfaVerisi}}];
+                    }
+                    window.EDITOR_DATA = sayfaVerisi;
+                    if (typeof window.renderEditor === 'function') window.renderEditor();
+                } else {
+                    alert('Kayıt bulunamadı!');
+                    window.location.href = 'okuma.html';
+                }
+            } catch (hata) {
+                console.error('Düzenleme verisi yükleme hatası:', hata);
+            }
+        }
+
+        async function kaydetVeyaGuncelle() {
+            const id = document.getElementById('edit_id').value || CURRENT_PAGE + '_' + Date.now();
+            const meta = {
+                konu: document.getElementById('meta_konu').value,
+                baslik: document.getElementById('meta_baslik').value
+            };
+
+            // Özel alanları kaydetme fonksiyonuna ekle
+            if (window.ALAN_TANIMLARI) {
+                const sayfaAlanlari = window.ALAN_TANIMLARI[CURRENT_PAGE] || { once: [], sonra: [] };
+                [...sayfaAlanlari.once, ...sayfaAlanlari.sonra].forEach(alan => {
+                    const el = document.getElementById('meta_' + alan.key);
+                    if(el) meta[alan.key] = el.value;
+                });
+            }
+            
+            let pageData = [{type: 'paragraf', content: {html: document.getElementById('word-canvas').innerHTML}}];
+            if (typeof window.getEditorData === 'function') {
+                pageData = window.getEditorData();
+            }
+
+            const yeniKayit = { id, meta, page: pageData };
+
+            try {
+                const res = await fetch(API_URL + '/latest', { headers: { 'X-Master-Key': MASTER_KEY } });
+                const data = await res.json();
+                let veriler = data.record || [];
+
+                const index = veriler.findIndex(v => v.id === id);
+                if (index > -1) {
+                    veriler[index] = yeniKayit;
+                } else {
+                    veriler.push(yeniKayit);
+                }
+
+                await fetch(API_URL, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json', 'X-Master-Key': MASTER_KEY },
+                    body: JSON.stringify(veriler)
+                });
+
+                alert('Veri başarıyla kaydedildi!');
+                window.location.href = 'okuma.html';
+            } catch (hata) {
+                alert('Kaydetme hatası: ' + hata.message);
+            }
+        }
+
+        function escapeHtml(text) {
+            if(text === null || typeof text === 'undefined') return '';
+            const map = {'&': '&amp;','<': '&lt;','>': '&gt;','"': '&quot;',"'": '&#039;'};
+            return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+    </script>
+
+    <!-- YENİ EKLENEN DOSYALAR -->
+    <script src="includes/alan_tanimlari.js"></script>
+    <script src="includes/alan_render.js"></script>
+
+    <!-- Scriptler en son yükleniyor -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/kayit-coklu.js"></script>
+
+    <!-- Scriptler en son yükleniyor -->
+    <script src="../assets/js/main.js"></script>
+    <script src="../assets/js/kayit-coklu.js"></script>
+
+</body>
+</html>
