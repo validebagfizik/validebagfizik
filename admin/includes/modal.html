@@ -1,0 +1,50 @@
+<script>window.OZEL_ALAN_ANAHTARLARI = ["yazar", "kapak", "tarih"];</script>
+
+<div class="popup-overlay" id="yeniBaglamModal">
+    <div class="popup-box">
+        <div class="popup-header">
+            <h5><i class="fa-solid fa-file-circle-plus"></i> Yeni Bağlam Başlığı Oluştur</h5>
+            <button type="button" class="popup-close" onclick="baglamKapat()" aria-label="Kapat">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="popup-body">
+            <form id="baglam-baslik-formu" onsubmit="return false">
+                <!-- Sabit Alanlar -->
+                <div class="popup-alan">
+                    <label>Ünite / Konu Adı</label>
+                    <input type="text" class="popup-input" id="popup-konu" placeholder="Örn: Dinamik" required>
+                </div>
+
+                <div class="popup-alan">
+                    <label>Bağlam Başlığı / Adı</label>
+                    <input type="text" class="popup-input" id="popup-baslik" placeholder="Başlığı girin" required>
+                </div>
+
+                <!-- Ozel Alanlar (JSON'daki meta verilerine göre eklendi) -->
+                <div class="popup-alan">
+                    <label>Yazar</label>
+                    <input type="text" class="popup-input" id="popup-yazar" placeholder="Yazar adı">
+                </div>
+
+                <div class="popup-alan">
+                    <label>Kapak</label>
+                    <input type="hidden" id="popup-kapak">
+                    <button type="button" class="kapak-sec-btn" id="popupKapakSecBtn" onclick="popupKapakSec()">
+                        <img id="popupKapakOnizleme" src="" style="display:none;" alt="">
+                        <span id="popupKapakSecMetni"><i class="fa-solid fa-image"></i> Galeri</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="popup-footer">
+            <button type="button" class="popup-btn popup-btn-ghost" onclick="baglamKapat()">Vazgeç</button>
+            <!-- Vercel'de veri kaydedilemeyeceği için buton uyarı verecek şekilde ayarlandı -->
+            <button type="button" class="popup-btn popup-btn-primary" onclick="alert('Vercel statik hostingde yeni kayıt oluşturulamaz.')">
+                <i class="fa-solid fa-check"></i> Tamam
+            </button>
+        </div>
+    </div>
+</div>
